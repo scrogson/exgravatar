@@ -22,9 +22,6 @@ defmodule Exgravatar do
     "http://#{@domain}/#{email_to_hash(email)}" |> String.downcase
   end
 
-  @doc """
-  Generates an MD5 hash for the given email address.
-  """
   defp email_to_hash(email) do
     bc <<x>> inbits :crypto.md5(email), do: <<integer_to_binary(x, 16) :: binary >>
   end
