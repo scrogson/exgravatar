@@ -27,7 +27,7 @@ defmodule Exgravatar do
   def generate(email, options \\ %{}, secure \\ false) do
     gravatar = "#{base_path(secure)}/#{email_to_hash(email)}" |> String.downcase
 
-    if Map.size(options) > 0 do
+    if map_size(options) > 0 do
       gravatar = gravatar <> "?#{URI.encode_query(options)}"
     end
 
