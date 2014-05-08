@@ -30,14 +30,8 @@ defmodule Exgravatar do
     gravatar
   end
 
-  defp base_path(secure) do
-    case secure do
-      false ->
-        "http://#{@domain}"
-      true  ->
-        "https://secure.#{@domain}"
-    end
-  end
+  defp base_path(true), do: "https://secure.#{@domain}"
+  defp base_path(_), do: "http://#{@domain}"
 
   defp email_to_hash(email) do
     for <<x <- :crypto.hash(:md5, email)>>, into: "", do: <<integer_to_binary(x, 16) :: binary>>
