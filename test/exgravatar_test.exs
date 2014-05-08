@@ -1,5 +1,5 @@
 defmodule ExgravatarTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   @domain "gravatar.com/avatar"
   @email "jdoe@example.com"
