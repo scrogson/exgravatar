@@ -14,12 +14,33 @@ defmodule Exgravatar do
 
   ## Example
  
-    iex> Exgravatar.gravatar("jdoe@example.com")
+    iex> Exgravatar.generate("jdoe@example.com")
     "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
 
+    iex> Exgravatar.generate("jdoe@example.com", %{"s" => 256})
+    "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb?s=256"
+
+    iex> Exgravatar.generate("jdoe@example.com", %{}, true)
+    "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
+
   """
-  def gravatar(email) do
-    "http://#{@domain}/#{email_to_hash(email)}" |> String.downcase
+  def generate(email, options \\ %{}, secure \\ false) do
+    gravatar = "#{base_path(secure)}/#{email_to_hash(email)}" |> String.downcase
+
+    if Map.size(options) > 0 do
+      gravatar = gravatar <> "?#{URI.encode_query(options)}"
+    end
+
+    gravatar
+  end
+
+  defp base_path(secure) do
+    case secure do
+      false ->
+        "http://#{@domain}"
+      true  ->
+        "https://secure.#{@domain}"
+    end
   end
 
   defp email_to_hash(email) do
