@@ -5,10 +5,6 @@ defmodule Exgravatar do
 
   @domain "gravatar.com/avatar"
 
-  def start(_type, _args) do
-    Exgravatar.Supervisor.start_link
-  end
-
   @doc """
   Generates a gravatar url for the given email address.
 

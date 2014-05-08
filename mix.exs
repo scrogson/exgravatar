@@ -4,13 +4,13 @@ defmodule Exgravatar.Mixfile do
   def project do
     [ app: :exgravatar,
       version: "0.0.1",
-      elixir: "~> 0.13.0-dev",
+      elixir: "~> 0.13.1",
       deps: deps ]
   end
 
   # Configuration for the OTP application
   def application do
-    [mod: { Exgravatar, [] }]
+    [applications: [:crypto]]
   end
 
   # Returns the list of dependencies in the format:
