@@ -2,6 +2,10 @@
 
 An Elixir module for generating [Gravatar](http://gravatar.com) urls.
 
+Make sure to check out the
+[Gravatar documentation](https://en.gravatar.com/site/implement/images/) for all
+available options.
+
 ## Usage
 
 ```elixir
