@@ -44,6 +44,6 @@ defmodule Exgravatar do
   end
 
   defp email_to_hash(email) do
-    bc <<x>> inbits :crypto.hash(:md5, email), do: <<integer_to_binary(x, 16) :: binary >>
+    for <<x <- :crypto.hash(:md5, email)>>, into: "", do: <<integer_to_binary(x, 16) :: binary>>
   end
 end
