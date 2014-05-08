@@ -9,11 +9,11 @@ defmodule Exgravatar do
   Generates a gravatar url for the given email address.
 
   ## Example
- 
+
     iex> Exgravatar.generate("jdoe@example.com")
     "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
 
-    iex> Exgravatar.generate("jdoe@example.com", %{"s" => 256})
+    iex> Exgravatar.generate("jdoe@example.com", %{s: 256})
     "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb?s=256"
 
     iex> Exgravatar.generate("jdoe@example.com", %{}, true)
