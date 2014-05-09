@@ -22,13 +22,11 @@ defmodule Exgravatar do
   """
   def generate(email, options \\ %{}, secure \\ false) do
     gravatar = "#{base_path(secure)}/#{email_to_hash(email)}" |> String.downcase
-
-    if map_size(options) > 0 do
-      gravatar = gravatar <> "?#{URI.encode_query(options)}"
-    end
-
-    gravatar
+    gravatar <> generate_options(options)
   end
+
+  defp generate_options(options) when map_size(options) == 0, do: ""
+  defp generate_options(options), do: "?#{URI.encode_query(options)}"
 
   defp base_path(true), do: "https://secure.#{@domain}"
   defp base_path(_), do: "http://#{@domain}"
