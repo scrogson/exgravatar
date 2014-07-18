@@ -6,7 +6,7 @@ defmodule Exgravatar.Mixfile do
   def project do
     [ app: :exgravatar,
       version: "0.1.0",
-      elixir: "~> 0.13.1",
+      elixir: ">= 0.14.1",
       description: description,
       package: package,
       deps: deps ]
