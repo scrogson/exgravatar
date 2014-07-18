@@ -32,6 +32,6 @@ defmodule Exgravatar do
   defp base_path(_), do: "http://#{@domain}"
 
   defp email_to_hash(email) do
-    for <<x <- :crypto.hash(:md5, email)>>, into: "", do: <<integer_to_binary(x, 16) :: binary>>
+    :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
   end
 end
