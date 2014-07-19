@@ -20,18 +20,18 @@ defmodule Exgravatar do
     "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
 
   """
-  def generate(email, options \\ %{}, secure \\ false) do
-    gravatar = "#{base_path(secure)}/#{email_to_hash(email)}" |> String.downcase
-    gravatar <> generate_options(options)
+  def generate(email, opts \\ %{}, secure \\ false) do
+    %URI{} |> host(secure) |> email_to_hash(email) |> options(opts) |> to_string
   end
 
-  defp generate_options(options) when map_size(options) == 0, do: ""
-  defp generate_options(options), do: "?#{URI.encode_query(options)}"
+  defp options(%URI{} = uri, opts) when map_size(opts) == 0, do: %URI{uri|query: nil}
+  defp options(%URI{} = uri, opts), do: %URI{uri|query: URI.encode_query(opts)}
 
-  defp base_path(true), do: "https://secure.#{@domain}"
-  defp base_path(_), do: "http://#{@domain}"
+  defp host(%URI{} = uri, true),  do: %URI{uri|scheme: "https", host: "secure.#{@domain}"}
+  defp host(%URI{} = uri, false), do: %URI{uri|scheme: "http", host: @domain}
 
-  defp email_to_hash(email) do
-    :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
+  defp email_to_hash(%URI{} = uri, email) do
+    hash = :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
+    %URI{uri|path: hash}
   end
 end
