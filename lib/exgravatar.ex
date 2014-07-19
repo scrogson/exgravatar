@@ -3,7 +3,7 @@ defmodule Exgravatar do
     An Elixir module for generating [Gravatar](http://gravatar.com) urls.
   """
 
-  @domain "gravatar.com/avatar"
+  @domain "gravatar.com/avatar/"
 
   @doc """
   Generates a gravatar url for the given email address.
