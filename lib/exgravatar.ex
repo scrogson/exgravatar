@@ -24,13 +24,13 @@ defmodule Exgravatar do
     %URI{} |> host(secure) |> email_to_hash(email) |> options(opts) |> to_string
   end
 
-  defp options(%URI{} = uri, opts) when map_size(opts) == 0, do: %URI{uri|query: nil}
-  defp options(%URI{} = uri, opts), do: %URI{uri|query: URI.encode_query(opts)}
+  defp options(uri, opts) when map_size(opts) == 0, do: %URI{uri|query: nil}
+  defp options(uri, opts), do: %URI{uri|query: URI.encode_query(opts)}
 
-  defp host(%URI{} = uri, true),  do: %URI{uri|scheme: "https", host: "secure.#{@domain}"}
-  defp host(%URI{} = uri, false), do: %URI{uri|scheme: "http", host: @domain}
+  defp host(uri, true),  do: %URI{uri|scheme: "https", host: "secure.#{@domain}"}
+  defp host(uri, false), do: %URI{uri|scheme: "http", host: @domain}
 
-  defp email_to_hash(%URI{} = uri, email) do
+  defp email_to_hash(uri, email) do
     hash = :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
     %URI{uri|path: hash}
   end
