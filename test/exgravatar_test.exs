@@ -1,6 +1,9 @@
 defmodule ExgravatarTest do
   use ExUnit.Case, async: true
 
+  # just to make sure the examples in the docs are working
+  doctest Exgravatar
+
   @domain "gravatar.com/avatar"
   @email "jdoe@example.com"
   @email_hash "694ea0904ceaf766c6738166ed89bafb"
