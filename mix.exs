@@ -24,6 +24,6 @@ defmodule Exgravatar.Mixfile do
     [files: ["lib", "mix.exs", "README*", "LICENSE"],
      contributors: ["Sonny Scroggin"],
      licenses: ["MIT"],
-     links: [{ "GitHub", "https://github.com/scrogson/exgravatar" }]]
+     links: %{"GitHub" => "https://github.com/scrogson/exgravatar"}]
   end
 end
