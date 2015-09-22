@@ -1,28 +1,32 @@
 defmodule ExgravatarTest do
   use ExUnit.Case, async: true
 
-  # just to make sure the examples in the docs are working
   doctest Exgravatar
 
-  @domain "gravatar.com/avatar"
+  import Exgravatar
+
+  @domain "http://gravatar.com/avatar"
+  @secure "https://secure.gravatar.com/avatar"
   @email "jdoe@example.com"
   @email_hash "694ea0904ceaf766c6738166ed89bafb"
 
   test "it converts email into an MD5 hash" do
-    assert "http://#{@domain}/#{@email_hash}" == Exgravatar.generate(@email)
+    assert "#{@domain}/#{@email_hash}" ==
+      gravatar_url(@email, secure: false)
   end
 
-  test "it generates secure urls" do
-    assert "https://secure.#{@domain}/#{@email_hash}" == Exgravatar.generate(@email, %{}, true)
+  test "it generates secure urls by default" do
+    assert "#{@secure}/#{@email_hash}" ==
+      gravatar_url(@email)
   end
 
   test "it generates correct query string params" do
-    options = %{s: 256, r: "pg"}
-    assert "https://secure.#{@domain}/#{@email_hash}?r=pg&s=256" == Exgravatar.generate(@email, options, true)
+    assert "#{@secure}/#{@email_hash}?s=256&r=pg" ==
+      gravatar_url(@email, s: 256, r: "pg")
   end
 
   test "it allows you to use a default image" do
-    options = %{d: "http://example.com/images/avatar.jpg"}
-    assert "http://#{@domain}/#{@email_hash}?d=http%3A%2F%2Fexample.com%2Fimages%2Favatar.jpg" == Exgravatar.generate(@email, options)
+    assert "#{@secure}/#{@email_hash}?d=http%3A%2F%2Fexample.com%2Fimages%2Favatar.jpg" ==
+      gravatar_url(@email, d: "http://example.com/images/avatar.jpg")
   end
 end

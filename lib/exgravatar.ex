@@ -1,6 +1,6 @@
 defmodule Exgravatar do
   @moduledoc """
-    An Elixir module for generating [Gravatar](http://gravatar.com) urls.
+  An Elixir module for generating [Gravatar](http://gravatar.com) urls.
   """
 
   @domain "gravatar.com/avatar/"
@@ -8,30 +8,35 @@ defmodule Exgravatar do
   @doc """
   Generates a gravatar url for the given email address.
 
-  ## Example
+  ## Examples
 
-    iex> Exgravatar.generate("jdoe@example.com")
-    "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
+      iex> Exgravatar.gravatar_url("jdoe@example.com", secure: false)
+      "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
 
-    iex> Exgravatar.generate("jdoe@example.com", %{s: 256})
-    "http://gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb?s=256"
+      iex> Exgravatar.gravatar_url("jdoe@example.com", s: 256)
+      "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb?s=256"
 
-    iex> Exgravatar.generate("jdoe@example.com", %{}, true)
-    "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
-
+      iex> Exgravatar.gravatar_url("jdoe@example.com")
+      "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
   """
-  def generate(email, opts \\ %{}, secure \\ false) do
-    %URI{} |> host(secure) |> email_to_hash(email) |> options(opts) |> to_string
+  def gravatar_url(email, opts \\ []) do
+    {secure, opts} = Keyword.pop(opts, :secure, true)
+
+    %URI{}
+    |> host(secure)
+    |> hash_email(email)
+    |> parse_options(opts)
+    |> to_string
   end
 
-  defp options(uri, opts) when map_size(opts) == 0, do: %URI{uri|query: nil}
-  defp options(uri, opts), do: %URI{uri|query: URI.encode_query(opts)}
+  defp parse_options(uri, []), do: %URI{uri | query: nil}
+  defp parse_options(uri, opts), do: %URI{uri | query: URI.encode_query(opts)}
 
-  defp host(uri, true),  do: %URI{uri|scheme: "https", host: "secure.#{@domain}"}
-  defp host(uri, false), do: %URI{uri|scheme: "http", host: @domain}
+  defp host(uri, true),  do: %URI{uri | scheme: "https", host: "secure.#{@domain}"}
+  defp host(uri, false), do: %URI{uri | scheme: "http",  host: @domain}
 
-  defp email_to_hash(uri, email) do
+  defp hash_email(uri, email) do
     hash = :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
-    %URI{uri|path: hash}
+    %URI{uri | path: hash}
   end
 end
