@@ -2,20 +2,16 @@ defmodule Exgravatar.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :exgravatar,
-      version: "0.2.0",
-      elixir: "~> 1.0",
-      description: description,
-      package: package,
-      deps: deps ]
+    [app: :exgravatar,
+     version: "0.2.0",
+     elixir: "~> 1.0",
+     description: description,
+     package: package,
+     deps: []]
   end
 
   def application do
     [applications: [:crypto]]
-  end
-
-  defp deps do
-    []
   end
 
   defp description do
@@ -25,11 +21,9 @@ defmodule Exgravatar.Mixfile do
   end
 
   defp package do
-    [
-      files: ["lib", "mix.exs", "README*", "LICENSE"],
-      contributors: ["Sonny Scroggin"],
-      licenses: ["MIT"],
-      links: [ { "GitHub", "https://github.com/scrogson/exgravatar" } ]
-    ]
+    [files: ["lib", "mix.exs", "README*", "LICENSE"],
+     contributors: ["Sonny Scroggin"],
+     licenses: ["MIT"],
+     links: [{ "GitHub", "https://github.com/scrogson/exgravatar" }]]
   end
 end
