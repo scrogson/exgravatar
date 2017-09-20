@@ -36,7 +36,7 @@ defmodule Exgravatar do
   defp host(uri, false), do: %URI{uri | scheme: "http",  host: @domain}
 
   defp hash_email(uri, email) do
-    hash = :crypto.hash(:md5, email) |> Base.encode16(case: :lower)
+    hash = :crypto.hash(:md5, String.downcase(email)) |> Base.encode16(case: :lower)
     %URI{uri | path: hash}
   end
 end
