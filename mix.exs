@@ -22,7 +22,7 @@ defmodule Exgravatar.Mixfile do
 
   defp package do
     [files: ["lib", "mix.exs", "README*", "LICENSE"],
-     contributors: ["Sonny Scroggin"],
+     maintainers: ["Sonny Scroggin"],
      licenses: ["MIT"],
      links: %{"GitHub" => "https://github.com/scrogson/exgravatar"}]
   end
