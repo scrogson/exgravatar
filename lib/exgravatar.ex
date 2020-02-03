@@ -32,8 +32,8 @@ defmodule Exgravatar do
   defp parse_options(uri, []), do: %URI{uri | query: nil}
   defp parse_options(uri, opts), do: %URI{uri | query: URI.encode_query(opts)}
 
-  defp host(uri, true),  do: %URI{uri | scheme: "https", host: "secure.#{@domain}"}
-  defp host(uri, false), do: %URI{uri | scheme: "http",  host: @domain}
+  defp host(uri, true), do: %URI{uri | scheme: "https", host: "secure.#{@domain}"}
+  defp host(uri, false), do: %URI{uri | scheme: "http", host: @domain}
 
   defp hash_email(uri, email) do
     hash = :crypto.hash(:md5, String.downcase(email)) |> Base.encode16(case: :lower)
