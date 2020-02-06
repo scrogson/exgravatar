@@ -3,7 +3,7 @@ defmodule Exgravatar do
   An Elixir module for generating [Gravatar](http://gravatar.com) urls.
   """
 
-  @domain "gravatar.com/avatar/"
+  @domain "gravatar.com"
 
   @doc """
   Generates a gravatar url for the given email address.
@@ -32,11 +32,11 @@ defmodule Exgravatar do
   defp parse_options(uri, []), do: %URI{uri | query: nil}
   defp parse_options(uri, opts), do: %URI{uri | query: URI.encode_query(opts)}
 
-  defp host(uri, true),  do: %URI{uri | scheme: "https", host: "secure.#{@domain}"}
-  defp host(uri, false), do: %URI{uri | scheme: "http",  host: @domain}
+  defp host(uri, true), do: %URI{uri | scheme: "https", host: "secure.#{@domain}"}
+  defp host(uri, false), do: %URI{uri | scheme: "http", host: @domain}
 
   defp hash_email(uri, email) do
     hash = :crypto.hash(:md5, String.downcase(email)) |> Base.encode16(case: :lower)
-    %URI{uri | path: hash}
+    %URI{uri | path: "/avatar/#{hash}"}
   end
 end
