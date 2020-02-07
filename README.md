@@ -1,6 +1,6 @@
 # Exgravatar
 
-[![Build Status](https://travis-ci.org/scrogson/exgravatar.svg?branch=master)](https://travis-ci.org/scrogson/exgravatar)
+![CI](https://github.com/scrogson/exgravatar/workflows/Elixir%20CI/badge.svg)
 
 An Elixir module for generating [Gravatar](http://gravatar.com) urls.
 
