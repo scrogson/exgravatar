@@ -1,0 +1,1 @@
+sidebarNodes={"extras":[{"group":"","headers":[{"anchor":"modules","id":"Modules"}],"id":"api-reference","title":"API Reference"}],"modules":[{"group":"","id":"Exgravatar","nodeGroups":[{"key":"functions","name":"Functions","nodes":[{"anchor":"gravatar_url/2","id":"gravatar_url/2"}]}],"title":"Exgravatar"}],"tasks":[]}

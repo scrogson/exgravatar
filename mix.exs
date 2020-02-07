@@ -8,7 +8,9 @@ defmodule Exgravatar.Mixfile do
       elixir: "~> 1.0",
       description: description(),
       package: package(),
-      deps: []
+      deps: [
+        {:ex_doc, "~> 0.21", only: :dev}
+      ]
     ]
   end
 
