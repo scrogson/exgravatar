@@ -1,6 +1,6 @@
 defmodule Exgravatar do
   @moduledoc """
-  An Elixir module for generating [Gravatar](http://gravatar.com) urls.
+  An Elixir module for generating [Gravatar](http://gravatar.com) URLs.
   """
 
   @domain "gravatar.com"
@@ -18,6 +18,7 @@ defmodule Exgravatar do
 
       iex> Exgravatar.gravatar_url("jdoe@example.com")
       "https://secure.gravatar.com/avatar/694ea0904ceaf766c6738166ed89bafb"
+
   """
   def gravatar_url(email, opts \\ []) do
     {secure, opts} = Keyword.pop(opts, :secure, true)
